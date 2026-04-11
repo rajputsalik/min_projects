@@ -64,7 +64,7 @@ def cal():
 
         elif user_input.lower() == "history":
             for item in history:
-                print("\n📜 History:")
+                print("\n History:")
                 print(item)
                 print()  
                 continue
