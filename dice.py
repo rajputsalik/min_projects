@@ -1,33 +1,49 @@
 import os
+import random 
+
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def dic():
-    his = []
-    print("Type 'exit' or 'No' to quit | 'clear' to clear screen | 'history' to view history\n")
-    print("Want To Roll The Device? (y/n): ")
+def dic(num_dice):
+    history = []
+
+    valid_commands = ['y', 'n', 'exit', 'clear', 'history']
+
+    print("Type 'exit' to quit | 'clear' to clear screen | 'history' to view history\n")
+    
     while True:
-        user_input = input(">>> ") 
-        if user_input.lower() == 'n' or user_input.lower() == 'quit':
-            break
-        elif user_input.lower() == 'y':
+        user_input = input("Want To Roll The Dice? (y/n): ").lower()
+
+        #  Invalid input check
+        if user_input not in valid_commands:
+            print("Invalid input! Allowed: y, n, exit, clear, history")
             continue
 
-        elif user_input.lower() == 'history':
-            for item in his:
-                his.append(item)
-                print()
-                continue
+        # Exit
+        if user_input in ['n', 'exit']:
+            print("GoodBye")
+            break
 
-        elif user_input.lower() == 'clear':
+        # History
+        elif user_input == 'history':
+            print("\n History:")
+            for item in history:
+                print(item)
+            print()
+            continue
+
+        #Clear
+        elif user_input == 'clear':
             clear_screen()
             continue
 
-        try:
-            print("Playing")
+        #Roll Dice
+        elif user_input == 'y':
+            roll_result = [random.randint(1, 6) for _ in range(num_dice)]
+            history.append(roll_result)
+            print("Result:", roll_result)
 
-        except Exception as e:
-            print("Invaild Input ",e)     
+
 if __name__ == "__main__":
-    dic()        
-
+    num = int(input("Enter a number"))
+    dic(num)
